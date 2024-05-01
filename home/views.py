@@ -5,7 +5,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
     TemplateView,
-    FormView,
+    View,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
@@ -96,25 +96,38 @@ class NotesDetailView(DetailView):
 ##! Note Share
 
 
-class NoteShareView(FormView):
-    template_name = "home/notes_list.html"
+class NoteShareView(View):
     form_class = ShareNotesForm
-    success_url = "/"
+    success_url = reverse_lazy("notes")
 
-    def form_valid(self, form):
-        share_id = form.cleaned_data["shareid"]
-        queryset = Notes.objects.filter(shareid=share_id)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
 
-        for note in queryset:
-            shared_note = Notes.objects.create(
-                title=note.title,
-                content=note.content,
-                user=self.request.user,
-                shareid=str(uuid.uuid4()),
-            )
-            shared_note.save()
+        if form.is_valid():
+            share_id = form.cleaned_data["shareid"]
 
-        return super().form_valid(form)
+            if not share_id:
+                form.add_error("shareid", "Share ID cannot be empty.")
+                return HttpResponseRedirect(self.success_url)
+
+            queryset = Notes.objects.filter(shareid=share_id)
+
+            for note in queryset:
+                if note.user == request.user:
+                    form.add_error(None, "You cannot share a note with yourself.")
+                    return HttpResponseRedirect(self.success_url)
+
+                shared_note = Notes.objects.create(
+                    title=note.title,
+                    content=note.content,
+                    user=request.user,
+                    shareid=str(uuid.uuid4()),
+                )
+                shared_note.save()
+
+            return HttpResponseRedirect(self.success_url)
+
+        return HttpResponseRedirect(self.success_url)
 
 
 ##! Home
