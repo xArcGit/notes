@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="{{ description }}">
+        <meta name="keywords" content="{{ keywords }}">
+        <link rel="icon"
+              href="{% static 'assets/favicon.svg' %}"
+              type="image/x-icon">
+        {% if title %}
+            <title>{{ title }}</title>
+        {% else %}
+            <title>MindScribe</title>
+        {% endif %}
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+        <script src="https://kit.fontawesome.com/a9998b72a6.js"
+                crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-4 has-text-weight-bold"
+                       href="{% url 'notes' %}"><span class="has-text-primary-80">Mind</span>Scribe</a>
+                    <a role="button"
+                       class="navbar-burger"
+                       aria-label="menu"
+                       aria-expanded="true"
+                       data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div id="navbarBasicExample" class="navbar-menu">
+                    {% if user.is_authenticated %}
+                        <div class="navbar-end">
+                            <div class="navbar-item">
+                                <form method="post" action="{% url 'add' %}">
+                                    {% csrf_token %}
+                                    <div class="field has-addons ml-3 mr-4">
+                                        <div class="control">
+                                            <input class="input"
+                                                   type="text"
+                                                   name="shareid"
+                                                   id="id_shareid"
+                                                   placeholder="Add your notes">
+                                        </div>
+                                        <div class="control">
+                                            <button class="button is-info">Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form method="post" action="{% url 'logout' %}">
+                                    <div class="buttons ml-2">
+                                        {% csrf_token %}
+                                        <button class="button is-danger is-outlined ml-2" type="submit">Logout</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="navbar-end">
+                            <div class="navbar-item">
+                                <div class="buttons">
+                                    <a class="button is-primary" href="{% url 'signup' %}">
+                                        <strong>Sign up</strong>
+                                    </a>
+                                    <a class="button is-light" href="{% url 'signin' %}">Sign in</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+        <main>
+            {% if form.errors %}
+                <article class="message is-danger is-pulled-right mr-4">
+                    <div class="message-header">
+                        <p>Alert!</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                    <div class="message-body">
+                        {% for field_name, field_errors in form.errors.items %}
+                            {% for error in field_errors %}{{ error }}{% endfor %}
+                        {% endfor %}
+                    </div>
+                </article>
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                $navbarBurgers.forEach( el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+
+                    });
+                });
+
+            });
+            document.addEventListener('DOMContentLoaded', () => {
+                (document.querySelectorAll('.message .delete') || []).forEach(($delete) => {
+                    const $notification = $delete.closest('.message');
+
+                    $delete.addEventListener('click', () => {
+                        $notification.parentNode.removeChild($notification);
+                    });
+                });
+            });
+
+
+        </script>
+    </body>
+</html>

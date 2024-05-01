@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="hero is-primary is-fullheight-with-navbar">
+        <div class="hero-body">
+            <div class="container has-text-centered has-text-primary-100">
+                <h2 class="title is-size-1">Welcome to MindScribe</h2>
+                <p class="subtitle mt-3">
+                    Look no further! There is a powerful note-taking and sharing app that can meet all your needs. With this app, you can take notes, organize them into categories, and share them with whomever you choose. It's a great way to collaborate with others and keep everyone on the same page. Give it a try today!
+                </p>
+                <a href="{% url 'signin' %}"
+                   class="button is-large is-primary is-inverted">Get Started</a>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title has-text-centered is-size-2">Key Features</h2>
+            <div class="columns is-centered mt-5">
+                <div class="column is-4 mt-5">
+                    <div class="box has-text-centered feature">
+                        <span class="icon is-large"><i class="fas fa-pen fa-2x"></i></span>
+                        <h3 class="title is-4 mt-5">Efficient Note Taking</h3>
+                        <p>Quickly jot down your thoughts, ideas, and tasks with ease.</p>
+                    </div>
+                </div>
+                <div class="column is-4 mt-5">
+                    <div class="box has-text-centered feature">
+                        <span class="icon is-large"><i class="fas fa-share-alt fa-2x"></i></span>
+                        <h3 class="title is-4 mt-5">Seamless Sharing</h3>
+                        <p>Share your notes effortlessly with family, friends, and colleagues.</p>
+                    </div>
+                </div>
+                <div class="column is-4 mt-5">
+                    <div class="box has-text-centered feature">
+                        <span class="icon is-large"><i class="fas fa-lock fa-2x"></i></span>
+                        <h3 class="title is-4 mt-5">Secure & Private</h3>
+                        <p>Your data is encrypted and protected, ensuring your privacy and security.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>&copy; 2024 MindScribe. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var nav = document.querySelector("nav");
+        nav.classList.add("is-primary");
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        var nav = document.querySelector("span");
+        nav.classList.add("has-text-danger-100");
+    });
+    </script>
+{% endblock content %}

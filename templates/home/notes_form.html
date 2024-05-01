@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="section">
+        <form method='post'>
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">{{ form.title.label }}</label>
+                <div class="control">
+                    <input class="input is-hovered"
+                           type="text"
+                           placeholder="e.g Alex Smith"
+                           name="title"
+                           value="{% if form.title.value %}{{ form.title.value }}{% else %}{{ note.title }}{% endif %}">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{ form.content.label }}</label>
+                <div class="control">
+                    <textarea class="textarea is-hovered"
+                              class="textarea"
+                              placeholder="e.g. Hello world"
+                              rows="20"
+                              name="content">{% if form.content.value %}{{ form.content.value}}{% else %}{{ note.content }}{% endif %}</textarea>
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link" type="submit">Submit</button>
+                </div>
+                <div class="control">
+                    <button class="button is-link is-light" type="button" id="cancelButton">Cancel</button>
+                </div>
+            </div>
+        </form>
+        {% if form.errors %}
+            <div class="notification is-danger">
+                <button class="delete"></button>
+                {% for field in form %}
+                    {% for error in field.errors %}<p>{{ error }}</p>{% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+    <script>
+        var currentUrl = window.location.href;
+        var cancelUrl;
+
+        var noteId = currentUrl.split('/').pop();
+        if (noteId === "edit" || noteId === "new?") {
+            currentUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+            noteId = currentUrl.split('/').pop();
+        }
+        var baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
+        var canceldetailUrl = baseUrl + noteId;
+        cancelUrl = canceldetailUrl;
+
+        document.getElementById("cancelButton").onclick = function() {
+            window.location.href = cancelUrl;
+        };
+    </script>
+{% endblock content %}
