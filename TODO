@@ -1,8 +1,8 @@
 ## First To-Do List
-- Users cannot input their code themselves.
-- Fix errors in the route /add and other.
-- Remove confirmation for deletion.
-- Add a search option.
+- Users cannot input their code themselves. => DONE
+- Fix errors in the route /add and other. => DONE
+- Remove confirmation for deletion. => DONE
+- Add a search option. => ONWORKING
 - Improve code quality.
 - Add test cases.
 
