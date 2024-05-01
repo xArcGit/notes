@@ -57,6 +57,15 @@ class NotesDeleteView(DeleteView):
     model = Notes
     success_url = reverse_lazy("notes")
 
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
+
 
 class NotesUpdateView(UpdateView):
     model = Notes
