@@ -18,17 +18,12 @@
           <div class="column is-one-third">
             <div class="card">
               <header class="card-header">
-                <p class="card-header-title is-size-3">{{ note.title }}</p>
+                <p class="card-header-title is-size-3 mt-3">{{ note.title }}</p>
                 <button class="card-header-icon" aria-label="more options">
                   <span class="icon mr-3">
                     <a href="{% url 'detail' pk=note.id %}">
                       <i class="fa-solid fa-expand has-text-success" aria-hidden="true"></i>
                     </a>
-                  </span>
-                  <span class="icon mr-3">
-                    <i class="fas fa-copy copy-icon has-text-success"
-                       aria-hidden="true"
-                       onclick="copyToClipboard('{{ note.shareid }}')"></i>
                   </span>
                 </button>
               </header>
@@ -45,14 +40,4 @@
       </div>
     </div>
   </section>
-  <script>
-    function copyToClipboard(text) {
-        var tempInput = document.createElement("input");
-        tempInput.value = text;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-    }
-  </script>
 {% endblock content %}

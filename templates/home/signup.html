@@ -1,19 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
     <section class="section">
-        {% if form.errors %}
-            <article class="message is-danger is-pulled-right">
-                <div class="message-header">
-                    <p>Alert!</p>
-                    <button class="delete" aria-label="delete"></button>
-                </div>
-                <div class="message-body">
-                    {% for field_name, field_errors in form.errors.items %}
-                        {% for error in field_errors %}{{ error }}{% endfor %}
-                    {% endfor %}
-                </div>
-            </article>
-        {% endif %}
         <h2 class="has-text-weight-semibold is-size-3 mb-3">Sign up</h2>
         <form class="box" method="post">
             {% csrf_token %}
@@ -107,15 +94,4 @@
         <button class="button mt-4 is-primary" type="submit">Signup</button>
     </form>
 </section>
-<script>
-        document.addEventListener('DOMContentLoaded', () => {
-            (document.querySelectorAll('.message .delete') || []).forEach(($delete) => {
-                const $notification = $delete.closest('.message');
-
-                $delete.addEventListener('click', () => {
-                    $notification.parentNode.removeChild($notification);
-                });
-            });
-        });
-</script>
 {% endblock content %}

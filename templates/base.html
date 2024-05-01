@@ -81,17 +81,12 @@
         </header>
         <main>
             {% if form.errors %}
-                <article class="message is-danger is-pulled-right mr-4">
-                    <div class="message-header">
-                        <p>Alert!</p>
-                        <button class="delete" aria-label="delete"></button>
-                    </div>
-                    <div class="message-body">
-                        {% for field_name, field_errors in form.errors.items %}
-                            {% for error in field_errors %}{{ error }}{% endfor %}
-                        {% endfor %}
-                    </div>
-                </article>
+                <div class="notification is-danger">
+                    <button class="delete"></button>
+                    {% for field_name, field_errors in form.errors.items %}
+                        {% for error in field_errors %}{{ error }}{% endfor %}
+                    {% endfor %}
+                </div>
             {% endif %}
             {% block content %}
             {% endblock content %}
@@ -111,15 +106,17 @@
 
             });
             document.addEventListener('DOMContentLoaded', () => {
-                (document.querySelectorAll('.message .delete') || []).forEach(($delete) => {
-                    const $notification = $delete.closest('.message');
+                (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                    const $notification = $delete.parentNode;
 
                     $delete.addEventListener('click', () => {
-                        $notification.parentNode.removeChild($notification);
+                    $notification.parentNode.removeChild($notification);
                     });
                 });
             });
-
+            if (window.location.pathname.includes('/add')) {
+                window.location.href = '/';
+            }
 
         </script>
     </body>
