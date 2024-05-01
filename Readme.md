@@ -1,5 +1,7 @@
 # Notes App
 
+![image00](static/image/image00.png)
+
 ## Description
 
 The Notes App is a simple web application designed to help users organize and manage their notes effectively. It allows users to create, view, edit, and delete notes. Additionally, users can sign up for an account to save their notes securely.
@@ -24,9 +26,21 @@ The Notes App is a simple web application designed to help users organize and ma
 
 ## Setup Instructions
 
-1. Clone the repository to your local machine.
-2. Install Python (if not already installed).
-3. Install dependencies by running `pip install -r requirements.txt`.
+1. Installation
+Clone the repository:
+```bash
+git clone https://github.com/MineNique/flask-blog.git
+cd flask-blog
+```
+2. Create a virtual environment (optional but recommended):
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 4. Apply migrations to create the database schema by running `python manage.py migrate`.
 5. Start the development server by running `python manage.py runserver`.
 6. Open a web browser and navigate to `http://localhost:8000` to access the application.
