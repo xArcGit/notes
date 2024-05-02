@@ -109,6 +109,9 @@ class NoteShareView(View):
     form_class = ShareNotesForm
     success_url = reverse_lazy("notes")
 
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect(self.success_url)
+
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
 
@@ -117,26 +120,33 @@ class NoteShareView(View):
 
             if not share_id:
                 form.add_error("shareid", "Share ID cannot be empty.")
-                return HttpResponseRedirect(self.success_url)
+                return self.get(request, *args, **kwargs)
 
-            queryset = Notes.objects.filter(shareid=share_id)
+            queryset = self.get_queryset(share_id)
 
             for note in queryset:
                 if note.user == request.user:
                     form.add_error(None, "You cannot share a note with yourself.")
-                    return HttpResponseRedirect(self.success_url)
+                    return self.get(request, *args, **kwargs)
 
-                shared_note = Notes.objects.create(
-                    title=note.title,
-                    content=note.content,
-                    user=request.user,
-                    shareid=str(uuid.uuid4()),
-                )
-                shared_note.save()
+                try:
+                    shared_note = Notes.objects.create(
+                        title=note.title,
+                        content=note.content,
+                        user=request.user,
+                        shareid=str(uuid.uuid4()),
+                    )
+                    shared_note.save()
+                except Exception as e:
+                    form.add_error(None, f"Error occurred while sharing note: {str(e)}")
+                    return self.get(request, *args, **kwargs)
 
             return HttpResponseRedirect(self.success_url)
 
-        return HttpResponseRedirect(self.success_url)
+        return self.get(request, *args, **kwargs)
+
+    def get_queryset(self, share_id):
+        return Notes.objects.filter(shareid=share_id)
 
 
 ##! Home
@@ -149,9 +159,14 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["title"] = "MindScribe"
         context["description"] = (
-            "MindScribe - Capture, Organize, and Share Your Thoughts Effortlessly. MindScribe is the ultimate note-taking and sharing web app, empowering you to record your ideas seamlessly, organize them effortlessly, and share them with ease. Whether you're brainstorming, planning, or reflecting, MindScribe simplifies the process, making note-taking a breeze. Get started today and unleash your creativity with MindScribe."
+            "MindScribe - Capture, Organize, and Share Your Thoughts Effortlessly. MindScribe is the ultimate "
+            "note-taking and sharing web app, empowering you to record your ideas seamlessly, organize them "
+            "effortlessly, and share them with ease. Whether you're brainstorming, planning, or reflecting, "
+            "MindScribe simplifies the process, making note-taking a breeze. Get started today and unleash your "
+            "creativity with MindScribe."
         )
         context["keywords"] = (
-            "MindScribe, note-taking, sharing, web app, capture, organize, ideas, brainstorming, planning, reflection, creativity"
+            "MindScribe, note-taking, sharing, web app, capture, organize, ideas, brainstorming, planning, "
+            "reflection, creativity"
         )
         return context

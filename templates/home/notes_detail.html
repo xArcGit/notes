@@ -42,6 +42,24 @@
         tempInput.select();
         document.execCommand("copy");
         document.body.removeChild(tempInput);
+        showPopup();
     }
+
+    function showPopup() {
+        var popup = document.createElement("div");
+        popup.innerHTML = "Copied to clipboard!";
+        popup.style.position = "fixed";
+        popup.style.top = "20%";
+        popup.style.left = "85%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.backgroundColor = "var(--bulma-text-10)";
+        popup.style.color = "var(--bulma-success)";
+        popup.style.padding = "20px";
+        document.body.appendChild(popup);
+        setTimeout(function() {
+            document.body.removeChild(popup);
+        }, 400);
+    }
+
     </script>
 {% endblock content %}
