@@ -29,8 +29,8 @@ The Notes App is a simple web application designed to help users organize and ma
 1. Installation
 Clone the repository:
 ```bash
-git clone https://github.com/MineNique/flask-blog.git
-cd flask-blog
+git clone https://github.com/xArcGit/notes.git
+cd notes
 ```
 2. Create a virtual environment (optional but recommended):
 ```bash
