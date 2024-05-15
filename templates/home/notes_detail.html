@@ -1,40 +1,39 @@
 {% extends "base.html" %}
 {% load markdown_filters %}
 {% block content %}
-    <section class="section">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title is-size-3">{{ note.title }}</p>
-                <div class="card-header-icon" aria-label="more options">
-                    <span class="icon mr-3">
-                        <i class="fas fa-copy copy-icon has-text-success"
-                           aria-hidden="true"
-                           onclick="copyToClipboard('{{ note.shareid }}')"></i>
-                    </span>
-                    <span class="icon mr-3">
-                        <a href="{% url 'update' pk=note.id %}">
-                            <i class="fas fa-edit has-text-warning" aria-hidden="true"></i>
-                        </a>
-                    </span>
-                    <span class="icon">
-                        <a href="{% url 'delete' pk=note.id %}">
-                            <i class="fas fa-trash has-text-danger" aria-hidden="true"></i>
-                        </a>
-                    </span>
-                </div>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    {% autoescape off %}
-                        {{ note.content|custom_markdown|safe }}
-                    {% endautoescape %}
-                    <br />
-                    <time>{{ note.created }}</time>
-                </div>
+<section class="section">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title is-size-3">{{ note.title }}</p>
+            <div class="card-header-icon" aria-label="more options">
+                <span class="icon mr-3">
+                    <i class="fas fa-copy copy-icon has-text-success" aria-hidden="true"
+                        onclick="copyToClipboard('{{ note.shareid }}')"></i>
+                </span>
+                <span class="icon mr-3">
+                    <a href="{% url 'update' pk=note.id %}">
+                        <i class="fas fa-edit has-text-warning" aria-hidden="true"></i>
+                    </a>
+                </span>
+                <span class="icon">
+                    <a href="{% url 'delete' pk=note.id %}">
+                        <i class="fas fa-trash has-text-danger" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </div>
+        </header>
+        <div class="card-content">
+            <div class="content">
+                {% autoescape off %}
+                {{ note.content|custom_markdown|safe }}
+                {% endautoescape %}
+                <br />
+                <time>{{ note.created }}</time>
             </div>
         </div>
-    </section>
-    <script>
+    </div>
+</section>
+<script>
     function copyToClipboard(text) {
         var tempInput = document.createElement("input");
         tempInput.value = text;
@@ -56,10 +55,10 @@
         popup.style.color = "var(--bulma-success)";
         popup.style.padding = "20px";
         document.body.appendChild(popup);
-        setTimeout(function() {
+        setTimeout(function () {
             document.body.removeChild(popup);
         }, 400);
     }
 
-    </script>
+</script>
 {% endblock content %}

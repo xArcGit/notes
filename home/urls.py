@@ -15,5 +15,7 @@ urlpatterns = [
     path("logout", views.LogoutInterfaceView.as_view(), name="logout"),
     path("signup", views.SignupInterfaceView.as_view(), name="signup"),
     ##! Note Share
-    path("add", views.NoteShareView.as_view(), name="add"),
+    path("add/note", views.NoteShareView.as_view(), name="add"),
+    # TODO
+    # path("add/group", views.NoteShareGroupView.as_view(), name="addgroup"),
 ]

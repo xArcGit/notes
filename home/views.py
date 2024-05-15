@@ -13,7 +13,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 import uuid
 from home.forms import CustomUserCreationForm
 from home.models import Notes
@@ -96,16 +96,32 @@ class NotesListView(LoginRequiredMixin, ListView):
         else:
             return Notes.objects.none()
 
-
-class NotesDetailView(DetailView):
+class NotesDetailView(LoginRequiredMixin, DetailView):
     model = Notes
     context_object_name = "note"
+    login_url = '/login/'
+    home_url = "/"
 
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            return HttpResponseRedirect(self.get_home_url())
+        if self.request.user == self.object.user:
+            return super().get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(self.get_home_url())
+
+    def get_home_url(self):
+        return self.home_url
+
+    def get_login_url(self):
+        return self.login_url
 
 ##! Note Share
 
 
-class NoteShareView(View):
+class NoteShareView(LoginRequiredMixin, View):
     form_class = ShareNotesForm
     success_url = reverse_lazy("notes")
 
