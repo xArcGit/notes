@@ -9,7 +9,7 @@ The Notes App is a simple web application designed to help users organize and ma
 ## Features
 
 - **User Authentication**: Users can sign up for an account and log in securely to access their notes.
-- **Create Notes**: Users can create new notes with a title and content.
+- **Create Notes**: Users can create new notes with title and content.
 - **View Notes**: Users can view a list of all their notes and click on each note to view its details.
 - **Edit Notes**: Users can edit existing notes to update their title or content.
 - **Delete Notes**: Users can delete unwanted notes.
