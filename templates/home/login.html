@@ -1,46 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-    <section class="section">
-        <h2 class="has-text-weight-semibold is-size-3 mb-3">Sign in</h2>
-        <form class="box" method="post">
-            {% csrf_token %}
-            <div class="field">
-                <label class="label" for="id_username">Username:</label>
-                <p class="control has-icons-left">
-                    <input class="input"
-                           type="text"
-                           name="username"
-                           autofocus
-                           autocapitalize="none"
-                           autocomplete="username"
-                           maxlength="60"
-                           required
-                           id="id_username"
-                           placeholder="e.g. alex">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <label class="label" for="id_password">Password:</label>
-                <p class="control has-icons-left">
-                    <input class="input"
-                           type="password"
-                           name="password"
-                           autocomplete="current-password"
-                           required
-                           id="id_password"
-                           placeholder="********" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-            <button class="button mt-4 is-primary" type="submit">Login</button>
-        </form>
-    </section>
+<section class="section">
+    <h2 class="has-text-weight-semibold is-size-3 mb-3">Sign in</h2>
+    <form class="box" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label" for="id_username">Username:</label>
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="username" autofocus autocapitalize="none" autocomplete="username"
+                    maxlength="60" required id="id_username" placeholder="e.g. alex">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <label class="label" for="id_password">Password:</label>
+            <p class="control has-icons-left">
+                <input class="input" type="password" name="password" autocomplete="current-password" required
+                    id="id_password" placeholder="********" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+        </div>
+        <button class="button mt-4 is-primary" type="submit">Login</button>
+    </form>
+</section>
 {% endblock content %}

@@ -34,10 +34,10 @@ class Notes(models.Model):
 
 
 # TODO:
-class Permission(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    note = models.ForeignKey(Notes, on_delete=models.CASCADE)
-    can_write = models.BooleanField(default=False)
+# class Permission(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     note = models.ForeignKey(Notes, on_delete=models.CASCADE)
+#     can_write = models.BooleanField(default=False)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.note.title} - Can Write: {self.can_write}"
+#     def __str__(self):
+#         return f"{self.user.username} - {self.note.title} - Can Write: {self.can_write}"

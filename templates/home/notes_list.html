@@ -1,43 +1,43 @@
 {% extends "base.html" %}
 {% load markdown_filters %}
 {% block content %}
-  <section class="section">
-    <div class="columns">
-      <div class="column">
-        <h1 class="title is-size-1">Notes</h1>
-      </div>
-      <form action="{% url 'create' %}">
-        <div class="column">
-          <button class="button is-primary is-outlined">Add New Note</button>
-        </div>
-      </form>
+<section class="section">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title is-size-1">Notes</h1>
     </div>
-    <div class="grid is-col-max-3">
-      <div class="columns is-multiline">
-        {% for note in notes %}
-          <div class="column is-one-third">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title is-size-3 mt-3">{{ note.title }}</p>
-                <button class="card-header-icon" aria-label="more options">
-                  <span class="icon mr-3">
-                    <a href="{% url 'detail' pk=note.id %}">
-                      <i class="fa-solid fa-expand has-text-success" aria-hidden="true"></i>
-                    </a>
-                  </span>
-                </button>
-              </header>
-              <div class="card-content">
-                <div class="content">
-                  {{ note.content|truncatechars:45|custom_markdown|safe }}
-                  <br />
-                  <time>{{ note.created }}</time>
-                </div>
-              </div>
+    <form action="{% url 'create' %}">
+      <div class="column">
+        <button class="button is-primary is-outlined">Add New Note</button>
+      </div>
+    </form>
+  </div>
+  <div class="grid is-col-max-3">
+    <div class="columns is-multiline">
+      {% for note in notes %}
+      <div class="column is-one-third">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title is-size-3 mt-3">{{ note.title }}</p>
+            <button class="card-header-icon" aria-label="more options">
+              <span class="icon mr-3">
+                <a href="{% url 'detail' pk=note.id %}">
+                  <i class="fa-solid fa-expand has-text-success" aria-hidden="true"></i>
+                </a>
+              </span>
+            </button>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              {{ note.content|truncatechars:45|custom_markdown|safe }}
+              <br />
+              <time>{{ note.created }}</time>
             </div>
           </div>
-        {% endfor %}
+        </div>
       </div>
+      {% endfor %}
     </div>
-  </section>
+  </div>
+</section>
 {% endblock content %}

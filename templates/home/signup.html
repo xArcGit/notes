@@ -1,95 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
-    <section class="section">
-        <h2 class="has-text-weight-semibold is-size-3 mb-3">Sign up</h2>
-        <form class="box" method="post">
-            {% csrf_token %}
-            <div class="field">
-                <label class="label" for="id_username">Username:</label>
-                <p class="control has-icons-left">
-                    <input class="input"
-                           type="text"
-                           name="username"
-                           maxlength="40"
-                           autocapitalize="none"
-                           autocomplete="username"
-                           required
-                           placeholder="e.g. alex"
-                           id="id_username">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
+<section class="section">
+    <h2 class="has-text-weight-semibold is-size-3 mb-3">Sign up</h2>
+    <form class="box" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label" for="id_username">Username:</label>
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="username" maxlength="40" autocapitalize="none"
+                    autocomplete="username" required placeholder="e.g. alex" id="id_username">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <label class="label" for="id_email">Email:</label>
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="email" maxlength="60" autofocus required
+                    placeholder="e.g. alex@example.com" id="id_email">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <label class="label" for="id_password1">Password:</label>
+            <div class="control has-icons-left">
+                <input class="input" type="password" name="password1" autocomplete="new-password" required
+                    aria-describedby="id_password1_helptext" placeholder="********" id="id_password1" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
             </div>
-            <div class="field">
-                <label class="label" for="id_email">Email:</label>
-                <p class="control has-icons-left">
-                    <input class="input"
-                           type="text"
-                           name="email"
-                           maxlength="60"
-                           autofocus
-                           required
-                           placeholder="e.g. alex@example.com"
-                           id="id_email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
+        </div>
+        <div class="field">
+            <label class="label" for="id_password2">Password confirmation:</label>
+            <div class="control has-icons-left">
+                <input class="input" type="password" name="password2" autocomplete="new-password" required
+                    aria-describedby="id_password2_helptext" placeholder="********" id="id_password2" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
             </div>
-            <div class="field">
-                <label class="label" for="id_password1">Password:</label>
-                <div class="control has-icons-left">
-                    <input class="input"
-                           type="password"
-                           name="password1"
-                           autocomplete="new-password"
-                           required
-                           aria-describedby="id_password1_helptext"
-                           placeholder="********"
-                           id="id_password1" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </div>
-            </div>
-            <div class="field">
-                <label class="label" for="id_password2">Password confirmation:</label>
-                <div class="control has-icons-left">
-                    <input class="input"
-                           type="password"
-                           name="password2"
-                           autocomplete="new-password"
-                           required
-                           aria-describedby="id_password2_helptext"
-                           placeholder="********"
-                           id="id_password2" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </div>
-                <p id="password-message" class="help"></p>
-            </div>
-            <div class="content">
-                <ul>
-                    <li>Your password can’t be too similar to your other personal information.</li>
-                    <li>Your password must contain at least 8 characters.</li>
-                    <li>Your password can’t be a commonly used password.</li>
-                    <li>Your password can’t be entirely numeric.</li>
-                </ul>
-            </div>
+            <p id="password-message" class="help"></p>
+        </div>
+        <div class="content">
+            <ul>
+                <li>Your password can’t be too similar to your other personal information.</li>
+                <li>Your password must contain at least 8 characters.</li>
+                <li>Your password can’t be a commonly used password.</li>
+                <li>Your password can’t be entirely numeric.</li>
+            </ul>
+        </div>
         </div>
         <button class="button mt-4 is-primary" type="submit">Signup</button>
     </form>
